@@ -1,4 +1,4 @@
 # Hello World
 ## Introduction
 ## Simulations
-<iframe width="512" height="512" seamless="seamless" frameBorder="0" scrolling="yes" src="visualization/CompEros2.html"></iframe>
+<iframe width="525" height="525" seamless="seamless" frameBorder="0" scrolling="yes" src="visualization/CompEros2.html"></iframe>
