@@ -1,25 +1,3 @@
-<!--
-Boilerplate WebGL code for visualization.
-
-The lattice is stored as a texture, and then sent to the GPU where it is
-rendered per pixel on the fragment shader.
-
-At the moment, the code visualizes a random walk on the torus. It works
-as follows. The main loop is the function tick(), which at each time step
-executes:
-
-1. mc(): execute a step of the markov chain. In this case, steps the particle
-  randomly.
-2. processLattice(): writes the state to the texture variable "lattice." In this
-  case, colors the location of the particle in the lattice.
-3. loadTextures(): loads the texture to the GPU memory.
-4. drawScene(): invocates the GPU pipeline to render.
-
-On the GPU side, the crucial function to is main in "frag_draw_tex". At the
-moment, it just reads the texture and displays it, with some
-blending to see the history of the particle.
---->
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -29,10 +7,8 @@ blending to see the history of the particle.
 
 <script id="frag_draw_tex" type="x-shader/x-fragment">#version 300 es
   precision mediump float;
-
   uniform sampler2D tex1;
 	out vec4 color;
-
 	void main(void) {
     // Reads the texture.
     float pc = texture(tex1,vec2((gl_FragCoord.x)/750.0,(gl_FragCoord.y)/750.0)).x;
@@ -42,8 +18,15 @@ blending to see the history of the particle.
     float c3 = step(1.99, 256.0*pc)-c4;
     float c2 = step(0.99, 256.0*pc)-c3-c4;
     float c1 = step(-0.01, 256.0*pc)-c2-c3-c4;
-    // Output color.
-    color = vec4(no_color*(vec3(1.0,0.0,0.0)*c1+vec3(0.0,1.0,0.0)*c2+vec3(0.0,0.0,1.0)*c3 + vec3(0.6,0.0,0.6)*c4),1.0);
+
+    vec3 color0 = vec3(1.0,0.0,0.0);
+    vec3 color1 = vec3(0.0,.8,.5);
+    vec3 color2 = vec3(0.0,0.5,.8);
+    vec3 color3 = vec3(0.0,0.0,1.0);
+    vec3 color4 = vec3(0.6,0.0,0.6);
+
+    // Output color
+    color = vec4(no_color*(color1*c1+color2*c2+color2*c3 + color4*c4),1.0);
     return;
 	}
 </script>
@@ -56,87 +39,75 @@ blending to see the history of the particle.
 
 <script type="text/javascript">
   var gl;
-
   // The square on top of which the texture is rendered.
 	var SVAO, SL;
-
   // Shader that draws the texture.
 	var sh_draw_tex;
-
   // Size of the lattice.
   const N = 256;
 
-
-  // defines the domain. Will only be used in initLattice
-
-  // // suare domain
-  // function domain(x, y) {
-  //   if((y == 7) && (x != 15)){
-  //     return 0;
-  //   }
-  //   return 1;
-  // }
-
-  // cirlce domain
-  // function domain(x, y){
-  //     return (x - 0.5)*(x - 0.5) + (y - 0.5)*(y - 0.5) <= 0.26; // check radius again. Hack to get rid of padding.
-  // }
-
   function domain(x, y){
-    var c = math.complex(2*(x-0.5), 2*(y-0.5));
-    var temp = math.divide(math.add(-1, math.sqrt(math.add(1, math.multiply(4, c)))), 2);
-    return math.abs(temp) < 0.5;
+    return math.abs(phi(x,y)) < 1.0;
   }
 
-  function phi(x, y){
-    var w = math.complex(x, y);
-    return math.add(w, math.pow(w, 2));
-  }
 
-  // //semi circle
-  // function domain(x, y){
-  //   // if(y < 1/2.){
-  //   //   return 0;
-  //   // }
-  //   return (x - 0.5)*(x - 0.5) + (y - 0.5)*(y - 0.5) < 0.26; // check radius again. Hack to get rid of padding.
-  // }
+
+  // some useful phis
+  // cardioid: math.divide(math.add(-1, math.sqrt(math.add(1, math.multiply(4, c)))), 1);
+  /*
+  function phi(x,y) {
+    var c = math.complex(x, y);
+    return math.divide(math.add(-3, math.sqrt(math.add(9, math.multiply(math.complex(0, -84), math.multiply(c,c))))), math.multiply(6,c));
+  }
+  var domain_starting_regions = [[[0.375, 0.5]],[[0.875, 0.5]]];
+  */
+
+  // Dumbbell shape
+  /*
+  function phi(x,y) {
+    var c = math.complex(x, y);
+    return math.divide(math.add(-3, math.sqrt(math.add(9, math.multiply(math.complex(0, -84), math.multiply(c,c))))), math.multiply(6,c));
+  }
+  var domain_starting_regions = [[[-0.5, 0.0]],[[0.5, 0.0]]];
+  */
+
+
+
+  // Joukowsky
+  // (0.0833333 - 0.158333 I) + 1.04167 w + (0. + 0.208333 I) Sqrt[16. - 25. w^2]
+
+  function phi(x,y) {
+    var c = math.complex(x, y);
+    if ( x > 0)
+      return math.add(math.add(math.complex(0.08333333, -0.158333333), math.multiply(1.04167,c)),math.multiply(.208333333,math.sqrt(math.add(-16,math.multiply(25,math.multiply(c,c))))));
+    return math.add(math.add(math.complex(0.08333333, -0.158333333), math.multiply(1.04167,c)),math.multiply(-.208333333,math.sqrt(math.add(-16,math.multiply(25,math.multiply(c,c))))));
+  }
+  var domain_starting_regions = [[[0.0, 0.0]],[[0.0, 0.2]]];
+
+
 
   // defines the starting regions for each color
-
-
   // The flattened lattice packed into a RGBA texture.
   // Each lattice site (i,j) has associated to it four 8-bit integers:
   // lattice[4*(i*N+j)+0],lattice[4*(i*N+j)+1],
   // lattice[4*(i*N+j)+2], lattice[4*(i*N+j)+3]
   const lattice = new Uint8Array(4*N*N);
-
   const NO_COLOR = 255; //  since we are using Uint
-
   // GPU texture object
   var tex1;
-
   function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
-
   function to_lattice(x, y){
-    return [Math.floor(x * (N-1)), Math.floor(y *  (N-1))]
+    return [Math.floor((x+1)/2.0 * (N-1)), Math.floor((y+1)/2.0 *  (N-1))]
   }
-
   // set the domain_starting_regions and in the initLattice it will be
   // converted to regions on the lattice. We assume uniform measure.
-  var domain_starting_regions = [[[0.375, 0.5]],[[0.875, 0.5]]];
 
-  // function transform_cirlce(x, y){
-  //   var c = phi(x, y);
-  //   var x_trans = math.re(c);
-  //   var y_trans = math.img(c);
-  // }
+
   // var domain_starting_regions = [[[phi]], [[]]]
-
   // var domain_starting_regions = [[[1/2., 0]], [[1/2, 1]]];
   var lattice_starting_regions = [];
-
   // converts the domain_starting_regions to regions on the lattice.
   function domain_start_to_lattice(){
      for(var color = 0; color < domain_starting_regions.length; color++){
@@ -149,27 +120,23 @@ blending to see the history of the particle.
          lattice_starting_regions.push(color_region);
      }
   }
-
   // init random lattice under the given domain_function
   function initLattice() {
     domain_start_to_lattice();
 
-    console.log(lattice_starting_regions)
+    console.log(lattice_starting_regions);
 
     for (var x = 0; x < N; x++) {
       for (var y = 0; y < N; y++) {
-        if (domain(x*1.0/(N-1), y*1.0/(N - 1)) == 0){
+        if (domain(2*(x*1.0/(N-1)-.5), 2*(y*1.0/(N - 1)-.5)) == 0){
           setColor(x, y, NO_COLOR);
         } else{
-          // var c = getRandomInt(lattice_starting_regions.length);
           var p = u01();
-          var c;
-          if (p < 0.23){
-            c = 0;
+          if (p < 0.5){
+            setColor(x, y, 0);
           } else {
-            c = 1;
+            setColor(x, y, 1);
           }
-          setColor(x, y, c);
         }
       }
     }
@@ -184,7 +151,6 @@ blending to see the history of the particle.
      }
      return lattice[4*(y * N  + x)];
   }
-
   function setColor(x, y, color) {
      if((x < 0) || (x >= N)){
          return;
@@ -195,23 +161,18 @@ blending to see the history of the particle.
      if ((getColor(x, y) == NO_COLOR) && (NO_COLOR != color)){
        return;
      }
-
      lattice[4*(y * N + x)] = color;
   }
-
   // random walks starting at given positions until hitting square which
   // is not startColor. Will not change the colors of a square with NO_COLOR.
   function randomWalk(startX, startY, startColor) {
      var x = startX;
      var y = startY;
-
      var next_neighbor;
      var rand_neighbor;
      while (lattice[4*(y*N + x)] == startColor) {
          rand_neighbor = u01();
-
          var valid_neighbors = [];
-
          if(getColor(x+1, y) != NO_COLOR){
              valid_neighbors.push('R');
          }
@@ -224,8 +185,6 @@ blending to see the history of the particle.
          if(getColor(x, y-1) != NO_COLOR){
              valid_neighbors.push('D');
          }
-
-
          for(var i = 1; i < (valid_neighbors.length + 1); i++){
              if(rand_neighbor < i/(1.0*valid_neighbors.length) ){
                  next_neighbor = valid_neighbors[i-1];
@@ -233,7 +192,6 @@ blending to see the history of the particle.
              }
          }
          // TODO what if no valid neighbor found?
-
          if (next_neighbor == 'U') {
              y++;
          }
@@ -250,33 +208,27 @@ blending to see the history of the particle.
      if(lattice[4*(y * N + x)] ==  NO_COLOR){
        return;
      }
-
      setColor(x, y, startColor);
   }
-
   function mcStep() {
-
      for (var color = 0; color < lattice_starting_regions.length; color++) {
          var starting_point = lattice_starting_regions[color][getRandomInt(lattice_starting_regions[color].length)];
          dest = randomWalk(starting_point[0], starting_point[1], color);
      }
-
   }
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
+
+  }
 
   var  timesteps = 0;
   async function tick() {
-
     for (i = 0; i < 10; i++) {
       mcStep();
     }
-
     loadTextures();
     drawScene();
-
     // if (timesteps % 500 == 0){
     //   console.log("hey")
     //   await sleep(3*1000);
@@ -284,6 +236,7 @@ blending to see the history of the particle.
     timesteps++;
     requestAnimFrame(tick);
   }
+
 
   function drawScene() {
     gl.useProgram(sh_draw_tex);
@@ -293,9 +246,7 @@ blending to see the history of the particle.
     gl.bindVertexArray(SVAO);  gl.drawElements(gl.TRIANGLES, SL, gl.UNSIGNED_SHORT, 0); gl.bindVertexArray(null);
 	}
 
-	function u01() {
-		return Math.random();
-	}
+	function u01() { return Math.random(); }
 
 	function make_shader(vertshader, fragshader) {
 		var sp = gl.createProgram();
@@ -305,9 +256,7 @@ blending to see the history of the particle.
 		return sp;
 	}
 
-	function loadShaders() {
-    sh_draw_tex = make_shader("vert_pass","frag_draw_tex");
-	}
+	function loadShaders() { sh_draw_tex = make_shader("vert_pass","frag_draw_tex"); }
 
 	function loadTextures() {
 		gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex1);
@@ -316,52 +265,40 @@ blending to see the history of the particle.
 
   function webGLStart() {
         var canvas = document.getElementById("canvas");
-
 		try {
             gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
 			gl.viewportWidth = canvas.width; gl.viewportHeight = canvas.height;
         } catch (e) { }
-
         if (!gl) { alert("Could not initialise WebGL, sorry :-("); }
-
 		gl.disable(gl.DEPTH_TEST);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-
 		loadShaders();
     tex1 = gl.createTexture();
 		loadTextures();
-
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-
 		// square
     vertices = [1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0, 0.0 ];
 		ebo = [0,1,2,1,2,3];
-
 		SVAO = gl.createVertexArray(); SL = 6;
 		gl.bindVertexArray(SVAO);
 		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 		gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0); gl.enableVertexAttribArray(0);
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,  new Uint16Array(ebo), gl.STATIC_DRAW);
-
 		gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
 		document.onmousedown = handleMouseDown;
 		document.onmouseup = handleMouseUp;
 		document.onkeydown = handleKeyDown;
 		document.onmousemove = handleMouseMove;
 		document.onmouseout = handleMouseUp;
-
     initLattice();
-
     tick();
   }
 
   function getShader(gl, id) {
         var shaderScript = document.getElementById(id);
         if (!shaderScript) { return null; }
-
         var str = "";
         var k = shaderScript.firstChild;
         while (k) {
@@ -370,7 +307,6 @@ blending to see the history of the particle.
             }
             k = k.nextSibling;
         }
-
         var shader;
         if (shaderScript.type == "x-shader/x-fragment") {
             shader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -379,20 +315,17 @@ blending to see the history of the particle.
         } else {
             return null;
         }
-
         gl.shaderSource(shader, str);
         gl.compileShader(shader);
-
         if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
             alert(gl.getShaderInfoLog(shader));
             return null;
         }
         return shader;
     }
-	// ---- GUI stuff
+
 	{
   	var drag = false; var cmx, cmy;
-
   	function handleMouseDown(event) { }
   	function handleMouseMove(event) { }
   	function handleKeyDown(event) { }
@@ -405,4 +338,3 @@ blending to see the history of the particle.
 <body  style="background-color:black;" onload="webGLStart();">
 <canvas id="canvas" style="border: none;" width="750" height="750" bg-color ="black"></canvas>
 </body>
-</html>
