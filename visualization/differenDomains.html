@@ -52,26 +52,6 @@
 
 
 
-<<<<<<< HEAD
-  function domain(x, y){
-    var c = math.complex(2*(x-0.5), 2*(y-0.5));
-    var temp = math.divide(math.add(-1, math.sqrt(math.add(1, math.multiply(4, c)))), 2);
-    return math.abs(temp) < 0.25;
-  }
-  //
-  // function phi(x, y){
-  //   var w = math.complex(x, y);
-  //   return math.add(w, math.pow(w, 2));
-  // }
-
-
-  // function domain(x, y){
-  //   var c = math.complex(2*(x-0.5), 2*(y-0.5));
-  //   c = math.multiply(c, 1.2)
-  //   // var temp = math.divide(math.add(-1, math.sqrt(math.add(1, math.multiply(4, c)))), 2);
-  //   return math.abs(math.add(math.pow(c, 4), c)) < 0.5;
-  // }
-=======
   // some useful phis
   // cardioid: math.divide(math.add(-1, math.sqrt(math.add(1, math.multiply(4, c)))), 1);
   /*
@@ -81,29 +61,30 @@
   }
   var domain_starting_regions = [[[0.375, 0.5]],[[0.875, 0.5]]];
   */
->>>>>>> 6a5ba9b89225ac884869b6d889a3615ba3200148
 
   // Dumbbell shape
-  /*
+
+  // (-3 + Sqrt[9 + 84 I * c^2])/6c
   function phi(x,y) {
     var c = math.complex(x, y);
     return math.divide(math.add(-3, math.sqrt(math.add(9, math.multiply(math.complex(0, -84), math.multiply(c,c))))), math.multiply(6,c));
   }
-  var domain_starting_regions = [[[-0.5, 0.0]],[[0.5, 0.0]]];
-  */
+  // var domain_starting_regions = [[[-0.5, 0.0]],[[0.5, 0.0]]];
+  var domain_starting_regions = [[[-0.0226986, 0.211854]],[[0.0226986, -0.211854]]];
+
 
 
 
   // Joukowsky
   // (0.0833333 - 0.158333 I) + 1.04167 w + (0. + 0.208333 I) Sqrt[16. - 25. w^2]
 
-  function phi(x,y) {
-    var c = math.complex(x, y);
-    if ( x > 0)
-      return math.add(math.add(math.complex(0.08333333, -0.158333333), math.multiply(1.04167,c)),math.multiply(.208333333,math.sqrt(math.add(-16,math.multiply(25,math.multiply(c,c))))));
-    return math.add(math.add(math.complex(0.08333333, -0.158333333), math.multiply(1.04167,c)),math.multiply(-.208333333,math.sqrt(math.add(-16,math.multiply(25,math.multiply(c,c))))));
-  }
-  var domain_starting_regions = [[[0.0, 0.0]],[[0.0, 0.2]]];
+  // function phi(x,y) {
+  //   var c = math.complex(x, y);
+  //   if ( x > 0)
+  //     return math.add(math.add(math.complex(0.08333333, -0.158333333), math.multiply(1.04167,c)),math.multiply(.208333333,math.sqrt(math.add(-16,math.multiply(25,math.multiply(c,c))))));
+  //   return math.add(math.add(math.complex(0.08333333, -0.158333333), math.multiply(1.04167,c)),math.multiply(-.208333333,math.sqrt(math.add(-16,math.multiply(25,math.multiply(c,c))))));
+  // }
+  // var domain_starting_regions = [[[0.0, 0.0]],[[0.0, 0.2]]];
 
 
 
@@ -124,17 +105,12 @@
   }
   // set the domain_starting_regions and in the initLattice it will be
   // converted to regions on the lattice. We assume uniform measure.
-<<<<<<< HEAD
   //0.280562 + 0.770961 I
   // var domain_starting_regions = [[[0.5 * -0.530008 + 0.5, 0.5 * 0.0891036 + 0.5]], [[0.5 * 0.280562+ 0.5, 0.5* 0.770961 + 0.5]]];
   // var domain_starting_regions = [[[0.5 * -0.530008 + 0.5, 0.5 * -0.0891036 + 0.4]], [[0.5 * 0.380461+ 0.5, 0.5* 0 + 0.5]]];
-  var domain_starting_regions = [[[0.5 * 0.75 + 0.5, 0.5 * 0 + 0.5]], [[0.5 * 0.25 + 0.5, 0.5* 0 + 0.5]]];
+  // var domain_starting_regions = [[[0.5 * 0.75 + 0.5, 0.5 * 0 + 0.5]], [[0.5 * 0.25 + 0.5, 0.5* 0 + 0.5]]];
 
   // var domain_starting_regions = [[[0, 0]],[[0, 0.5]]];
-
-=======
->>>>>>> 6a5ba9b89225ac884869b6d889a3615ba3200148
-
 
   // var domain_starting_regions = [[[phi]], [[]]]
   // var domain_starting_regions = [[[1/2., 0]], [[1/2, 1]]];
@@ -155,11 +131,7 @@
   function initLattice() {
     domain_start_to_lattice();
 
-<<<<<<< HEAD
     console.log(domain_starting_regions);
-=======
-    console.log(lattice_starting_regions);
->>>>>>> 6a5ba9b89225ac884869b6d889a3615ba3200148
 
     for (var x = 0; x < N; x++) {
       for (var y = 0; y < N; y++) {
@@ -198,14 +170,33 @@
      }
      lattice[4*(y * N + x)] = color;
   }
+
+  // The adjustPos function will at every change of x or y in the randomWalk
+  // adjust the position to be valid in the lattice. e.g. for a cyclical lattice
+  // it will make x and y loop around
+
+  // For cyclical lattice
+  function adjustPos(x, y){
+    return [ (x % N + N) % N, (y % N + N) % N];
+  }
+
+  // For non cyclical lattice
+  // function adjustPos(x, y){
+  //   return [x, y];
+  // }
+
+
   // random walks starting at given positions until hitting square which
   // is not startColor. Will not change the colors of a square with NO_COLOR.
   function randomWalk(startX, startY, startColor) {
      var x = startX;
      var y = startY;
+     var pos_pair = adjustPos(x, y);
+     x = pos_pair[0];
+     y = pos_pair[1];
      var next_neighbor;
      var rand_neighbor;
-     while (lattice[4*(y*N + x)] == startColor) {
+     while (getColor(x, y) == startColor) {
          rand_neighbor = u01();
          var valid_neighbors = [];
          if(getColor(x+1, y) != NO_COLOR){
@@ -239,8 +230,12 @@
          if (next_neighbor == 'L') {
              x--;
          }
-     }
-     if(lattice[4*(y * N + x)] ==  NO_COLOR){
+         pos_pair = adjustPos(x, y);
+         x = pos_pair[0];
+         y = pos_pair[1];
+
+       }
+     if(getColor(x, y) ==  NO_COLOR){
        return;
      }
      setColor(x, y, startColor);
