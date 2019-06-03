@@ -1,14 +1,3 @@
-# Hello World
-## Introduction
-## Simulations
-<iframe width="525" height="525" seamless="seamless" frameBorder="0" scrolling="no" src="visualization/CompEros2.html"></iframe>
-
-{% raw %}
-  $$a^2 + b^2 = c^2$$ --> note that all equations between these tags will not need escaping!
- {% endraw %}
-
-$$ a + b = 2$$
-
 # Introduction
 We study the fluctuations around the interface formed competitive erosion on a cylinder.
 The problem was studied by xyz and some of the main results used in this article are...
