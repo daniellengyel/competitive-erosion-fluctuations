@@ -1,9 +1,9 @@
-$$ 4 + 4 = 4$$
-<!-- # Hello World
+# Hello World
 ## Introduction
 ## Simulations
 <iframe width="525" height="525" seamless="seamless" frameBorder="0" scrolling="no" src="visualization/CompEros2.html"></iframe>
 
+$$ 4 + 4 = 4 $$ 
 
 
 # Introduction
@@ -241,4 +241,4 @@ If we had not rescaled the $x$-axis and if we also kept track of a factor of $2 
 \begin{align*}
 \Sigma(x,x') = \frac{1}{4 \pi n^2} \log( 2 - 2 \cos(x-x')) \;\;.
 \end{align*}
-In the next section we will present our comparison of this result with our numerical results. -->
+In the next section we will present our comparison of this result with our numerical results.
