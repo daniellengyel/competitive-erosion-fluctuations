@@ -3,8 +3,9 @@
 ## Simulations
 <iframe width="525" height="525" seamless="seamless" frameBorder="0" scrolling="no" src="visualization/CompEros2.html"></iframe>
 
-$$ 4 + 4 = 4 $$ 
-
+{% raw %}
+  $$a^2 + b^2 = c^2$$ --> note that all equations between these tags will not need escaping! 
+ {% endraw %}
 
 # Introduction
 
