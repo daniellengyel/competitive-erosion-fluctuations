@@ -1,5 +1,7 @@
+Competitive Erosion
+
 # Introduction
-We study the fluctuations around the interface formed competitive erosion on a cylinder.
+We study the fluctuations around the interface formed by competitive erosion on a cylinder.
 The problem was studied by xyz and some of the main results used in this article are...
 
 ## Definition  
@@ -10,6 +12,7 @@ Here we introduce the limit shape and conformal map results and support them wit
 
 # Our main results
 Brief description of our result (could potentially be put in the introduction as well)
+
 ## Fluctuations results (Gaussian free field)
 here we plot our results and do the math
 
