@@ -15,18 +15,26 @@ The problem was studied by xyz and some of the main results used in this article
 #### Show the simulations for various N
 
 # Our main results
-
-The correlation function for a continuous interface with interface height $$h(x)$$ at two points $$x$$ and $$x'$$ is given by
-[
+We consider competitive erosion on a cylinder. We find the following correlation function for a continuous interface with interface height $$h(x)$$ at two points $$x$$ and $$x'$$ is given by
+$$
 \begin{align*}
 \Sigma(x, x') = \frac{1}{4 \pi n^2} \log( 2 - 2 \cos(x-x')).
 \end{align*}
-]
+$$
+
+The above correlation function [ADD EQUATION LABELS] indicates that the distribution of the fluctuations can be expressed by a gaussian distribution.
+
+To do so, we want to find the stationary distribution of the markov chain for competitive erosion on a cylinder.
+In the process we will find that we can formulate this process as the Ornstein Uhlenbeck (OH) equation which is a Gaussian process, a Markov process, and is temporally homogeneous. By showing that we can formulate it as the OH equation, we can directly use the results from the OH equation's general study.
 
 
 ## Fluctuations results (Gaussian free field)
 ### The boundary value problem
-### Adding small Perturbations
-
+#### Adding small Perturbations
+#### Integral Kernel
+### Introduce Poisson Process
+### Set up Stochastic Diff Equations
+### Deduce Ornstein Uhlenbeck Process
+#### Use the OH results to deduce stationary distribution and covariance
 
 #  Some more interesting/fun simulations of different domains
