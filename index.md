@@ -16,11 +16,11 @@ The problem was studied by xyz and some of the main results used in this article
 
 # Our main results
 We consider competitive erosion on a cylinder. We find the following correlation function for a continuous interface with interface height $$h(x)$$ at two points $$x$$ and $$x'$$ is given by
-$$
+\[
 \begin{align*}
 \Sigma(x, x') = \frac{1}{4 \pi n^2} \log( 2 - 2 \cos(x-x')).
 \end{align*}
-$$
+\]
 
 The above correlation function [ADD EQUATION LABELS] indicates that the distribution of the fluctuations can be expressed by a gaussian distribution.
 
