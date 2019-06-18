@@ -6,7 +6,6 @@ The problem was studied by xyz and some of the main results used in this article
 
 ## General Definition of competitive erosion on a graph
 
-
 ## Background for key results from the conformal map paper and limit shape theorem
 ### Interface for general simply connected domain is conformally invariant
 #### Show the simulations here
@@ -30,7 +29,9 @@ In the process we will find that we can formulate this process as the Ornstein U
 
 ## Fluctuations results (Gaussian free field)
 ### The boundary value problem
-We want to find
+Let $$h(x): \mathbb{Z} \rightarrow \mathbb{Z} $$ be the y-coordinate of the first red square for the given x-coordinate. 
+
+
 
 #### Adding small Perturbations
 #### Integral Kernel
