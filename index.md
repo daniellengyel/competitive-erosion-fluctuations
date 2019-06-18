@@ -1,5 +1,4 @@
 
-
 # Introduction
 We study the fluctuations around the interface formed by competitive erosion on a cylinder.
 The problem was studied by xyz and some of the main results used in this article are...
@@ -53,14 +52,22 @@ $$w_i = \begin{cases}
 $$
 
 Now, let $$v = (x', h(x'))$$,
+
 $$
 \begin{align*}
-\mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{i=0}^{\infty} (P^i w)_v \\
-&= ((\sum_{i=0}^{\infty} P^i) w)_v \\
-&= ((I - P)^{-1} w)_v \\
+\mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{i=0}^{\infty} (P^i w)_ v \\
+&= ((\sum_{i=0}^{\infty} P^i) w)_ v \\
+&= ((I - P)^{-1} w)_ v \\
 &= (\Delta^{-1} w)_ v
 \end{align*}
 .$$
+
+We can reformulate this as a boundary value problem for $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$:
+$$
+\begin{align*}
+  \Delta g(v) &= w_v v \in B \cup \partial B \\
+\end{align*}
+$$
 
 #### Adding small Perturbations
 #### Integral Kernel
