@@ -56,8 +56,9 @@ Now, let $$v = (x', h(x'))$$,
 $$
 \begin{align*}
 \mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{i=0}^{\infty} (P^i w)_v \\
+&= ((\sum_{i=0}^{\infty} P^i) w)_v
 \end{align*}
-$$
+.$$ )_
 
 
 #### Adding small Perturbations
