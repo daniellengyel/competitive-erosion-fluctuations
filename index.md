@@ -39,8 +39,9 @@ $$
 P_{ij} =
 \begin{cases}
       0 & i = j \\
-      0 & i, j \in \partial B  \\
-      1/order(i) & i \sim j  
+      0 & i \in \partial B \\
+      1/order(i) & i \sim j \\
+      0 & else
    \end{cases}
 .$$
 
@@ -49,6 +50,13 @@ $$w_i = \begin{cases}
       1/N & i.y = 0 \\
       0 & else  \\
    \end{cases}.
+$$
+
+Now, let $$v = (x', h(x'))$$,
+$$
+\begin{align*}
+\mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{i=0}^{\infty} (P^i w)_v \\
+\end{align*}
 $$
 
 
