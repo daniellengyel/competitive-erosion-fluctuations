@@ -30,20 +30,26 @@ In the process we will find that we can formulate this process as the Ornstein U
 ## Fluctuations results (Gaussian free field)
 ### The boundary value problem
 (Assume that both that there is one simply connected red and blue region.
-  Let $$B$$ be the region in which all squares are blue and $$\del B$$ be the interface -- i.e. the set of lowest red squares for every x-coordinate.)
+  Let $$B$$ be the region in which all squares are blue and $$\partial B$$ be the interface -- i.e. the set of lowest red squares for every x-coordinate.)
 
 Let $$h(x): \mathbb{Z} \rightarrow \mathbb{Z} $$ be the y-coordinate of the first red square for the given x-coordinate -- such a function will define the interface. We now want to find the probability that a randomly initialized particle will hit $$h(x')$$ before any other point on the interface.
 
-We can view the random walk of the particle as a markov chain with the following transition matrix $$P$$ with the states being $$B \cup \del B$$:
+We can view the random walk of the particle as a markov chain with the following transition matrix $$P$$ with the states being $$B \cup \partial B$$:
 $$
 P_{ij} =
 \begin{cases}
       0 & i = j \\
-      0 & i, j \in \del B  \\
+      0 & i, j \in \partial B  \\
       1/order(i) & i \sim j  
    \end{cases}
-$$
+.$$
 
+The particle is initially uniformly distributed along the lower boundary of $B$ and is represented by the vector:
+$$w_i = \begin{cases}
+      1/N & i.y = 0 \\
+      0 & else  \\
+   \end{cases}.
+$$
 
 
 #### Adding small Perturbations
