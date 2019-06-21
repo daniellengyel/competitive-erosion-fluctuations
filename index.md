@@ -77,7 +77,7 @@ $$
 If $$v \in B$$ and $$\Delta g(v) != 0 $$ but $$ \Delta g(v) - \Delta g(v_{bellow}) = 0$$ then  $$g$$ will be constant on $$B$$ which will then force $$d_n g(v) \ for \ v \in \Partial B$$ to be constant.
 Hence, $$\Delta  g(v) = 0$$ for $$ v \in B$$.
 
-Lastly, for $v$ on the lower boundary:
+Lastly, for $$v$$ on the lower boundary:
 $$
 \begin{align*}
 \Delta d_n g(v) &= w_v\\
@@ -85,7 +85,7 @@ $$
       &= \Delta g(v) - \Delta g(v_{bellow}) \\
       &= 0 - (- d_n g(v))
       &= 1/n
-\begin{align*}
+\end{align*}
 $$
 [Assuming we set the edges going to the neighbors to zero at the lower boundary.]
 
