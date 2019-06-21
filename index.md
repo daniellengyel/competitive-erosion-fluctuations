@@ -42,13 +42,14 @@ P_{ij} =
       1/order(i) & i \sim j \\
       0 & else
    \end{cases}
-.$$
+$$.
+.
 
 The particle is initially uniformly distributed along the lower boundary of $B$ and is represented by the vector:
 $$w_i = \begin{cases}
       1/N & i.y = 0 \\
       0 & else  \\
-   \end{cases}.
+   \end{cases}
 $$
 
 Now, let $$v = (x', h(x'))$$,
@@ -60,7 +61,7 @@ $$
 &= ((I - P)^{-1} w)_ v \\
 &= (\Delta^{-1} w)_ v
 \end{align*}
-.$$
+$$
 
 We can reformulate this as a boundary value problem for $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$.
 
