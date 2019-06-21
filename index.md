@@ -71,8 +71,8 @@ We write:
 $$
 \begin{align*}
 \Delta d_n g(v) &= w_v\\
-\Delta (g(v) - g(v_{below})) \\
-      &= \Delta g(v) - \Delta g(v_{below}) \\
+\rightarrow \Delta (g(v) - g(v_{below})) &= \Delta g(v) - \Delta g(v_{below}) \\
+&= 0
 \end{align*}.
 $$
 
@@ -83,8 +83,7 @@ Lastly, for $$v$$ on the lower boundary:
 
 $$
 \begin{align*}
-\Delta d_n g(v) &= w_v\\
-\Delta (g(v) - g(v_{below})) \\
+\Delta d_n g(v) &= \Delta (g(v) - g(v_{below})) \\
       &= \Delta g(v) - \Delta g(v_{below}) \\
       &= 0 - (- d_n g(v))
       &= 1/n
