@@ -73,7 +73,7 @@ $$
 \Delta d_n g(v) &= w_v\\
 \rightarrow \Delta (g(v) - g(v_{below})) &= \Delta g(v) - \Delta g(v_{below}) \\
 &= 0
-\end{align*}.
+\end{align*}
 $$
 
 If $$v \in B$$ and $$\Delta g(v) != 0 $$ but $$ \Delta g(v) - \Delta g(v_{below}) = 0$$ then  $$g$$ will be constant on $$B$$ which will then force $$d_n g(v) \ for \ v \in \partial B$$ to be constant.
@@ -85,7 +85,7 @@ $$
 \begin{align*}
 \Delta d_n g(v) &= \Delta (g(v) - g(v_{below})) \\
       &= \Delta g(v) - \Delta g(v_{below}) \\
-      &= 0 - (- d_n g(v))
+      &= 0 - (- d_n g(v)) \\
       &= 1/n
 \end{align*}
 $$
