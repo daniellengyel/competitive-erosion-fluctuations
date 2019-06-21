@@ -90,7 +90,7 @@ $$
 \end{align*}
 $$
 
-[Assuming we set the edges going to the neighbors to zero at the lower boundary.]
+[Assuming we extend the domain below and set the edges going to the neighbors to zero at the lower boundary.]
 
 
 #### Adding small Perturbations
