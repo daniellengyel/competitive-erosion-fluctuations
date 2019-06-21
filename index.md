@@ -67,26 +67,30 @@ We can reformulate this as a boundary value problem for $$g: V \rightarrow \math
 We assume that $$g(v) = 0$$ for $$v \in \partial B$$.
 
 We write:
+
 $$
 \begin{align*}
 \Delta d_n g(v) &= w_v\\
 \Delta (g(v) - g(v_{below})) \\
-      &= \Delta g(v) - \Delta g(v_{bellow}) \\
-\end{align*}
+      &= \Delta g(v) - \Delta g(v_{below}) \\
+\end{align*}.
 $$
-If $$v \in B$$ and $$\Delta g(v) != 0 $$ but $$ \Delta g(v) - \Delta g(v_{bellow}) = 0$$ then  $$g$$ will be constant on $$B$$ which will then force $$d_n g(v) \ for \ v \in \Partial B$$ to be constant.
+
+If $$v \in B$$ and $$\Delta g(v) != 0 $$ but $$ \Delta g(v) - \Delta g(v_{below}) = 0$$ then  $$g$$ will be constant on $$B$$ which will then force $$d_n g(v) \ for \ v \in \partial B$$ to be constant.
 Hence, $$\Delta  g(v) = 0$$ for $$ v \in B$$.
 
 Lastly, for $$v$$ on the lower boundary:
+
 $$
 \begin{align*}
 \Delta d_n g(v) &= w_v\\
 \Delta (g(v) - g(v_{below})) \\
-      &= \Delta g(v) - \Delta g(v_{bellow}) \\
+      &= \Delta g(v) - \Delta g(v_{below}) \\
       &= 0 - (- d_n g(v))
       &= 1/n
 \end{align*}
 $$
+
 [Assuming we set the edges going to the neighbors to zero at the lower boundary.]
 
 
