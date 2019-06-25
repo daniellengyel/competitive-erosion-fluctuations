@@ -29,21 +29,20 @@ In the process we will find that we can formulate this process as the Ornstein U
 ## Fluctuations results (Gaussian free field)
 ### The boundary value problem
 (Assume that both that there is one simply connected red and blue region.
-  Let $$B$$ be the region in which all squares are blue and $$\partial B$$ be the interface -- i.e. the set of lowest red squares for every x-coordinate.)
+  Let $$B$$ be the region in which all squares are blue and $$\partial B$$ be the interface.)
 
-Let $$h(x): \mathbb{Z} \rightarrow \mathbb{Z} $$ be the y-coordinate of the first red square for the given x-coordinate -- such a function will define the interface. We now want to find the probability that a randomly initialized particle will hit $$h(x')$$ before any other point on the interface.
 
 We can view the random walk of the particle as a markov chain with the following transition matrix $$P$$ with the states being $$B \cup \partial B$$:
 $$
 P_{ij} =
 \begin{cases}
+      1 & i = j and i \in \partial B
       0 & i = j \\
       0 & i \in \partial B \\
       1/order(i) & i \sim j \\
       0 & else
    \end{cases}
-$$.
-.
+$$
 
 The particle is initially uniformly distributed along the lower boundary of $B$ and is represented by the vector:
 $$w_i = \begin{cases}
@@ -59,40 +58,27 @@ $$
 \mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{i=0}^{\infty} (P^i w)_ v \\
 &= ((\sum_{i=0}^{\infty} P^i) w)_ v \\
 &= ((I - P)^{-1} w)_ v \\
-&= (\Delta^{-1} w)_ v
+\rightarrow (I - P) w & = v
 \end{align*}
 $$
 
-We can reformulate this as a boundary value problem for $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$.
+We can reformulate this as a boundary value problem for $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$.
 
-We assume that $$g(v) = 0$$ for $$v \in \partial B$$.
-
-We write:
-
+For $$v \in \partial B$$ we have $$(I - P) w = 0$$ however
 $$
 \begin{align*}
-\Delta d_n g(v) &= w_v\\
-\rightarrow \Delta (g(v) - g(v_{below})) &= \Delta g(v) - \Delta g(v_{below}) \\
-&= 0
+\Delta v &= v - 1/4 (v_{below} + v_{left} + v_{right} + v_{up}) \\
 \end{align*}
 $$
 
-If $$v \in B$$ and $$\Delta g(v) != 0 $$ but $$ \Delta g(v) - \Delta g(v_{below}) = 0$$ then  $$g$$ will be constant on $$B$$ which will then force $$d_n g(v) \ for \ v \in \partial B$$ to be constant.
-Hence, $$\Delta  g(v) = 0$$ for $$ v \in B$$.
-
-Lastly, for $$v$$ on the lower boundary:
-
+For the bottom boundary we have $$v \in Bottom$$ letting $$d_n v = 1/N$$:
 $$
 \begin{align*}
-\Delta d_n g(v) &= \Delta (g(v) - g(v_{below})) \\
-      &= \Delta g(v) - \Delta g(v_{below}) \\
-      &= 0 - (- d_n g(v)) \\
-      &= 1/n
+(I - P) v &= 1/N + v - 1/3 (v_{left} + v_{right} + v_{up}) \\
+      &= v - 1/4 (v_{below} + v_{left} + v_{right} + v_{up}) \\
+      &= \Delta v 
 \end{align*}
 $$
-
-[Assuming we extend the domain below and set the edges going to the neighbors to zero at the lower boundary.]
-
 
 #### Adding small Perturbations
 #### Integral Kernel
