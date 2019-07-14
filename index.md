@@ -28,11 +28,11 @@ In the process we will find that we can formulate this process as the Ornstein U
 
 ## Fluctuations results (Gaussian free field)
 ### The boundary value problem
-(Assume that both that there is one simply connected red and blue region.
-  Let $$B$$ be the region in which all squares are blue and $$\partial B$$ be the interface.)
+[We defined this earlier:
+Assume that a simply connected red and blue region. Red region is $$R$$ and blue region is $$B$$. Interface from blue perspective if $$\partial B$$ and interface from red perspective is $$\partial R$$.]
 
+The random walk of a blue particle initialized at the bottom boundary can be expressed as a markov chain with the following transition matrix $$P$$:
 
-We can view the random walk of the particle as a markov chain with the following transition matrix $$P$$ with the states being $$B \cup \partial B$$:
 $$
 P_{ij} =
 \begin{cases}
@@ -44,21 +44,18 @@ P_{ij} =
    \end{cases}
 $$
 
-The particle is initially uniformly distributed along the lower boundary of $B$ and is represented by the vector:
+The particle is initially uniformly distributed along the lower boundary of $$B$$ and is represented by the vector:
 $$w_i = \begin{cases}
       1/N & i.y = 0 \\
       0 & else  \\
    \end{cases}
 $$
 
-Now, let $$v = (x', h(x'))$$,
+Now, let $$v = (x', h(x'))$$, and let $$Q$$ be the matrix without the contributions from the interface,
 
 $$
 \begin{align*}
-\mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{i=0}^{\infty} (P^i w)_ v \\
-&= ((\sum_{i=0}^{\infty} P^i) w)_ v \\
-&= ((I - P)^{-1} w)_ v \\
-\rightarrow (I - P) w & = v
+\mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{t - neighbors of v} 1/4 \sum_{i=0}^{\infty} (Q^i w)_ t \\
 \end{align*}
 $$
 
@@ -76,9 +73,10 @@ $$
 \begin{align*}
 (I - P) v &= 1/N + v - 1/3 (v_{left} + v_{right} + v_{up}) \\
       &= v - 1/4 (v_{below} + v_{left} + v_{right} + v_{up}) \\
-      &= \Delta v 
+      &= \Delta v
 \end{align*}
 $$
+which means we extended the bottom boundary.
 
 #### Adding small Perturbations
 #### Integral Kernel
