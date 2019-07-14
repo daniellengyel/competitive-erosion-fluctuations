@@ -31,7 +31,19 @@ In the process we will find that we can formulate this process as the Ornstein U
 [We defined this earlier:
 Assume that a simply connected red and blue region. Red region is $$R$$ and blue region is $$B$$. Interface from blue perspective if $$\partial B$$ and interface from red perspective is $$\partial R$$.]
 
-The random walk of a blue particle initialized at the bottom boundary can be expressed as a markov chain with the following transition matrix $$P$$:
+We define a function $$g: B \cup \partial B \rightarrow \mathbb{R}$$ by the following boundary value problem:
+
+$$
+\begin{align*}
+     g(v) &= 0 \ for \ v  \in \partial B \\
+     \Delta g(v) &= 0 \ for \ v \in B \\
+     d_n g(v) &= 1/n \ for \ v \in B \ s.t. \  v.y = 0
+\end{align*}
+$$
+
+We now show that the function which satisfies these conditions has the property that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v before \partial B \setminus \{v\}].
+
+The random walk of a blue particle initialized at the bottom boundary can be expressed by a markov chain with the following transition matrix $$P$$ ($$i, j \in B \cup \partial B):
 
 $$
 P_{ij} =
@@ -44,22 +56,51 @@ P_{ij} =
    \end{cases}
 $$
 
-The particle is initially uniformly distributed along the lower boundary of $$B$$ and is represented by the vector:
+Since the particle is initialized following a uniform distribution along the lower boundary of $$B$$ we represent the initial state of the markov state by the vector $$w \in \mathbb{R}^{|B \cup  \partial B|}$$:
 $$w_i = \begin{cases}
       1/N & i.y = 0 \\
       0 & else  \\
    \end{cases}
 $$
 
-Now, let $$v = (x', h(x'))$$, and let $$Q$$ be the matrix without the contributions from the interface,
+We now find the expected number of times we reach $$v \in \partial B$$ starting at $$w$$. To reach $$v$$ the markov chain has to reach one of the neighbors of $$v$$.
+The probability that the markov chain reaches a neighbor $$a$$ of $$v$$ starting from $$w$$ in $$k$$ steps is $$(w_{-}^t Q^k)_ a$$ where $$Q$$ is the transition matrix $$P$$ and $$w_{-}$$ is $$w$$ without the entries corresponding to $$\partial B$$ squares.
+
 
 $$
 \begin{align*}
-\mathbb{P}[v \ before \ anywhere \ else \ on \ interface] &= \sum_{t - neighbors of v} 1/4 \sum_{i=0}^{\infty} (Q^i w)_ t \\
+\mathbb{E}[v \in \partial B entries] &= \sum_{t \in neighbors of v} 1/4 \sum_{i=0}^{\infty} (w^t Q^i)_ t \\
 \end{align*}
 $$
 
-We can reformulate this as a boundary value problem for $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$.
+since the expected number of entries into the interface is 1 we have:
+$$
+\begin{align*}
+\mathbb{E}[v \in \partial B entries] &= \mathbb{P}[v before \partial B \setminus \{v\}] \\
+\end{align*}
+$$
+
+We now define $$\phi: \partial B \cup B \rightarrow \mathbb{R}$$ to be:
+$$
+\phi(v) = \begin{cases}
+      0 & v \in \partial B \\
+      -1/4 \sum_{i=0}^{\infty} (w^t Q^i)_ v & else
+\end{cases}
+$$
+
+Note that for $$v \in \partial B$$:
+$$
+\begin{align*}
+    d_n \phi(v) &= \sum_{t \sim v \ and t \in B} \phi(t) \\
+    &= \mathbb{P}[v before \partial B \setminus \{v\}] \\
+\end{align*}
+$$
+
+
+[note: set g to be \delta w and argue that we extend the vecotr delta w by 0 and everything else accordingly. Then the probability will become the normal of g. Also, absorb the 1/4 in delta w ]
+We now define a function $$g$$ which
+
+We can reformulate this as a boundary value problem for function $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$.
 
 For $$v \in \partial B$$ we have $$(I - P) w = 0$$ however
 $$
