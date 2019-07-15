@@ -41,14 +41,14 @@ $$
 \end{align*}
 $$
 
-We now show that the function which satisfies these conditions has the property that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v before \partial B \setminus \{v\}].
+We now show that the function which satisfies these conditions has the property that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v before \partial B \setminus \{v\}]$$.
 
-The random walk of a blue particle initialized at the bottom boundary can be expressed by a markov chain with the following transition matrix $$P$$ ($$i, j \in B \cup \partial B):
+The random walk of a blue particle initialized at the bottom boundary can be expressed by a markov chain with the following transition matrix $$P$$ ($$i, j \in B \cup \partial B$$):
 
 $$
 P_{ij} =
 \begin{cases}
-      1 & i = j and i \in \partial B
+      1 & i = j \ and \ i \in \partial B
       0 & i = j \\
       0 & i \in \partial B \\
       1/order(i) & i \sim j \\
@@ -69,14 +69,14 @@ The probability that the markov chain reaches a neighbor $$a$$ of $$v$$ starting
 
 $$
 \begin{align*}
-\mathbb{E}[v \in \partial B entries] &= \sum_{t \in neighbors of v} 1/4 \sum_{i=0}^{\infty} (w^t Q^i)_ t \\
+\mathbb{E}[v \in \partial B entries] &= \sum_{t \sim v} 1/4 \sum_{i=0}^{\infty} (w^t Q^i)_ t \\
 \end{align*}
 $$
 
 since the expected number of entries into the interface is 1 we have:
 $$
 \begin{align*}
-\mathbb{E}[v \in \partial B entries] &= \mathbb{P}[v before \partial B \setminus \{v\}] \\
+\mathbb{E}[v \in \partial B \ entries] &= \mathbb{P}[v \ before \ \partial B \setminus \{v\}] \\
 \end{align*}
 $$
 
@@ -92,32 +92,24 @@ Note that for $$v \in \partial B$$:
 $$
 \begin{align*}
     d_n \phi(v) &= \sum_{t \sim v \ and t \in B} \phi(t) \\
-    &= \mathbb{P}[v before \partial B \setminus \{v\}] \\
+    &= \mathbb{P}[v \ before \ \partial B \setminus \{v\}] \\
 \end{align*}
 $$
 
 
-[note: set g to be \delta w and argue that we extend the vecotr delta w by 0 and everything else accordingly. Then the probability will become the normal of g. Also, absorb the 1/4 in delta w ]
+[note: set g to be \delta w and argue that we extend the vector delta w by 0 and everything else accordingly. Then the probability will become the normal of g. Also, absorb the 1/4 in delta w ]
 We now define a function $$g$$ which
 
-We can reformulate this as a boundary value problem for function $$g: V \rightarrow \mathbb{R}$$ such that for $$v \in \partial B$$ $$g(v) = \mathbb{P}[v \ before \ anywhere \ else \ on \ interface]$$.
 
-For $$v \in \partial B$$ we have $$(I - P) w = 0$$ however
+For $$v \in B$$ and $$v \not \in B_{lower}$$ we have $$(I - P_{-}) \phi(v) = \Delta \phi(v) = w_{-}(v) = 0$$ and by definition of $$\phi$$ we have for $$v \in \partial B$$ $$\phi(v) = 0$$.
+Lastly, for $$v \in B_{lower}$$ we also want $$\Delta \phi(v) = 0$$ which we get by:
 $$
 \begin{align*}
-\Delta v &= v - 1/4 (v_{below} + v_{left} + v_{right} + v_{up}) \\
+(I - P) \phi(v) &= \phi(v) - 1/3 (\phi(v_{left}) + \phi(v_{right}) + \phi(v_{up})) = w_{-}(v) = 1/N \\
+\rightarrow   \Delta \phi(v) &=  3/4 (I - P) \phi(v) - \frac{3}{4N} = 0\\
+by \ letting \ d_n \phi(v_{bottom}) &= -\frac{3}{4N} \\
 \end{align*}
 $$
-
-For the bottom boundary we have $$v \in Bottom$$ letting $$d_n v = 1/N$$:
-$$
-\begin{align*}
-(I - P) v &= 1/N + v - 1/3 (v_{left} + v_{right} + v_{up}) \\
-      &= v - 1/4 (v_{below} + v_{left} + v_{right} + v_{up}) \\
-      &= \Delta v
-\end{align*}
-$$
-which means we extended the bottom boundary.
 
 #### Adding small Perturbations
 #### Integral Kernel
