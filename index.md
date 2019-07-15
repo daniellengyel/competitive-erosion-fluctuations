@@ -84,7 +84,7 @@ We now define $$\phi: \partial B \cup B \rightarrow \mathbb{R}$$ to be:
 $$
 \phi(v) = \begin{cases}
       0 & v \in \partial B \\
-      -1/4 \sum_{i=0}^{\infty} (w^t Q^i)_ v & else
+      -1/4 \sum_{i=0}^{\infty} (w_{-}^t Q^i)_ v & else
 \end{cases}
 $$
 
@@ -95,6 +95,7 @@ $$
     &= \mathbb{P}[v \ before \ \partial B \setminus \{v\}] \\
 \end{align*}
 $$
+[is this how normal derivative works lol ]
 
 
 [note: set g to be \delta w and argue that we extend the vector delta w by 0 and everything else accordingly. Then the probability will become the normal of g. Also, absorb the 1/4 in delta w ]
