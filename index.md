@@ -41,7 +41,7 @@ $$
 \end{align*}
 $$
 
-We now show that the function which satisfies these conditions has the property that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v \ before \ \partial B \setminus \{v\}]$$.
+We now show that the function which satisfies these conditions has the property that for $$v \in \partial B$$ $$d_n g(v) = \mathbb{P}[v \ before \ \partial B \setminus \{v\}]$$ [should be true by uniqueness?].
 
 The random walk of a blue particle initialized at the bottom boundary can be expressed by a markov chain with the following transition matrix $$P$$ ($$i, j \in B \cup \partial B$$):
 
