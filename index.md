@@ -57,6 +57,7 @@ P_{ij} =
 $$
 
 Since the particle is initialized following a uniform distribution along the lower boundary of $$B$$ we represent the initial state of the markov state by the vector $$w \in \mathbb{R}^{|B \cup  \partial B|}$$:
+
 $$w_i = \begin{cases}
       1/N & i.y = 0 \\
       0 & else  \\
@@ -74,6 +75,7 @@ $$
 $$
 
 since the expected number of entries into the interface is 1 we have:
+
 $$
 \begin{align*}
 \mathbb{E}[v \in \partial B \ entries] &= \mathbb{P}[v \ before \ \partial B \setminus \{v\}] \\
@@ -81,6 +83,7 @@ $$
 $$
 
 We now define $$\phi: \partial B \cup B \rightarrow \mathbb{R}$$ to be:
+
 $$
 \phi(v) = \begin{cases}
       0 & v \in \partial B \\
@@ -89,6 +92,7 @@ $$
 $$
 
 Note that for $$v \in \partial B$$:
+
 $$
 \begin{align*}
     d_n \phi(v) &= \sum_{t \sim v \ and t \in B} \phi(t) \\
@@ -104,6 +108,7 @@ We now define a function $$g$$ which
 
 For $$v \in B$$ and $$v \not \in B_{lower}$$ we have $$(I - P_{-}) \phi(v) = \Delta \phi(v) = w_{-}(v) = 0$$ and by definition of $$\phi$$ we have for $$v \in \partial B$$ $$\phi(v) = 0$$.
 Lastly, for $$v \in B_{lower}$$ we also want $$\Delta \phi(v) = 0$$ which we get by:
+
 $$
 \begin{align*}
 (I - P) \phi(v) &= \phi(v) - 1/3 (\phi(v_{left}) + \phi(v_{right}) + \phi(v_{up})) = w_{-}(v) = 1/N \\
